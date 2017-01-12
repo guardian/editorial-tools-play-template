@@ -16,8 +16,8 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
   .settings(
     name in Universal := normalizedName.value,
     topLevelDirectory := Some(normalizedName.value),
-    riffRaffPackageName := s"editorial-tools:${name.value}",
-    riffRaffManifestProjectName := riffRaffPackageName.value,
+    riffRaffPackageName := name.value,
+    riffRaffManifestProjectName := s"editorial-tools:${name.value}",
     riffRaffBuildIdentifier :=  Option(System.getenv("BUILD_NUMBER")).getOrElse("DEV"),
     riffRaffUploadArtifactBucket := Option("riffraff-artifact"),
     riffRaffUploadManifestBucket := Option("riffraff-builds"),
@@ -31,7 +31,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
     packageDescription := """A single place for atoms of all types""",
 
     riffRaffArtifactResources ++= Seq(
-      riffRaffPackageType.value -> s"packages/${name.value}/${name.value}.deb",
       baseDirectory.value / "cloudformation" / "AtomWorkshop.yml" -> s"packages/cloudformation/AtomWorkshop.yml"
     ),
     javaOptions in Universal ++= Seq(

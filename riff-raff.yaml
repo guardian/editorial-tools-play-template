@@ -1,11 +1,8 @@
 regions: [eu-west-1]
 stacks: [flexible]
-templates:
+
+deployments:
   atom-workshop:
     type: autoscaling
     parameters:
       bucket: composer-dist
-
-deployments:
-  atom-workshop:
-    template: atom-workshop

@@ -80,7 +80,7 @@ Resources:
         Fn::Base64:
           !Sub |
               #!/bin/bash -ev
-              aws s3 cp s3://composer-dist/flexible/${Stage}/${App}/${App}.deb /tmp
+              aws s3 cp s3://composer-dist/flexible/${Stage}/${App}/${App}_1.0_all.deb /tmp
               dpkg -i /tmp/${App}.deb
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
@@ -91,12 +91,12 @@ Resources:
       - IpProtocol: tcp
         FromPort: '443'
         ToPort: '443'
-        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage]
+        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage ]
       SecurityGroupEgress:
       - IpProtocol: tcp
         FromPort: '9000'
         ToPort: '9000'
-        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage]
+        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage ]
   SSHSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
