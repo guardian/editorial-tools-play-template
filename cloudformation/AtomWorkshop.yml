@@ -81,7 +81,7 @@ Resources:
           !Sub |
               #!/bin/bash -ev
               aws s3 cp s3://composer-dist/flexible/${Stage}/${App}/${App}_1.0_all.deb /tmp
-              dpkg -i /tmp/${App}.deb
+              dpkg -i /tmp/${App}_1.0_all.deb
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
