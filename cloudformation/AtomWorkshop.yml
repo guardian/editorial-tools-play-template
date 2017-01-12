@@ -75,7 +75,8 @@ Resources:
       InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
       SecurityGroups:
-        - Ref: "SSHSecurityGroup"
+        - Ref: SSHSecurityGroup
+        - Ref: InstanceSecurityGroup
       UserData:
         Fn::Base64:
           !Sub |
@@ -110,7 +111,7 @@ Resources:
   InstanceSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
-      GroupDescription: Allow SSH access from the office
+      GroupDescription: Allow instance access from the office
       VpcId: !Ref VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
