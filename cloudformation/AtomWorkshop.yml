@@ -3,7 +3,7 @@ Parameters:
   VpcId:
     Type: String
     Description: VpcId of your existing Virtual Private Cloud (VPC)
-  GuardianId:
+  GuardianIpRange:
     Type: String
     Description: Ip range for the office
     Default: 77.91.248.0/21
@@ -40,17 +40,11 @@ Parameters:
   PrivateSubnets:
     Type: List<AWS::EC2::Subnet::Id>
     Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
-    Default: 
-      - subnet-c2620fa7
-      - subnet-2967c870
-      - subnet-2a37bd5d
+    Default: "subnet-c2620fa7, subnet-2967c870, subnet-2a37bd5d"
   PublicSubnets:
     Type: List<AWS::EC2::Subnet::Id>
     Description: Subnets to use in VPC for public internet-facing ELB
-    Default: 
-      - subnet-c3620fa6
-      - subnet-2b37bd5c
-      - subnet-3667c86f
+    Default: "subnet-c3620fa6, subnet-2b37bd5c, subnet-3667c86f"
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing key pair, which will be given root access to
@@ -58,8 +52,6 @@ Parameters:
   ELBSSLCertificate:
     Type: String
     Description: ELB SSL Certificate ARN
-  GithubTeamName:
-    Type: String
 Mappings:
   Config:
     IpRange:
@@ -83,36 +75,33 @@ Resources:
       InstanceType: !Ref InstanceType
       KeyName: !Ref KeyName
       SecurityGroups:
-      - Ref: SecurityGroup
+        - Ref: "SSHSecurityGroup"
       UserData:
         Fn::Base64:
           !Sub |
               #!/bin/bash -ev
-              /opt/features/ssh-keys/initialise-keys-and-cron-job.sh -b github-team-keys -t ${GithubTeamName} -l || true
               aws s3 cp s3://composer-dist/flexible/${Stage}/${App}/${App}.deb /tmp
               dpkg -i /tmp/${App}.deb
   LoadBalancerSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Permit HTTPS access on port 443, egress to port 9000
-      VpcId:
-        Fn::ImportValue: !Ref VpcID
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
         FromPort: '443'
         ToPort: '443'
-        CidrIp: Fn::findInMap: [ Config, IpRange, !Ref Stage]
+        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage]
       SecurityGroupEgress:
       - IpProtocol: tcp
         FromPort: '9000'
         ToPort: '9000'
-        CidrIp: Fn::findInMap: [ Config, IpRange, !Ref Stage]
+        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage]
   SSHSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow SSH access from the office
-      VpcId:
-        Fn::ImportValue: !Ref VpcID
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
         FromPort: '22'
@@ -122,25 +111,24 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow SSH access from the office
-      VpcId:
-        Fn::ImportValue: !Ref VpcID
+      VpcId: !Ref VpcId
       SecurityGroupIngress:
       - IpProtocol: tcp
         FromPort: '9000'
         ToPort: '9000'
-        CidrIp: !Ref GuardianId
+        CidrIp: !Ref GuardianIpRange
       - IpProtocol: tcp
         FromPort: '9000'
         ToPort: '9000'
-        SourceSecurityGroupName: !Ref LoadBalancerSecurityGroup
+        SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
   AutoScalingGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
     Properties:
       VPCZoneIdentifier: !Ref PrivateSubnets
       Cooldown: '300'
-      DesiredCapacity: Fn::findInMap: [ Config, DesiredCapacity, !Ref Stage ]
-      MaxSize: Fn::findInMap: [ Config, MaxSize, !Ref Stage ]
-      MinSize: Fn::findInMap: [ Config, MinSize, !Ref Stage ]
+      DesiredCapacity: !FindInMap [ Config, DesiredCapacity, !Ref Stage ]
+      MaxSize: !FindInMap [ Config, MaxSize, !Ref Stage ]
+      MinSize: !FindInMap [ Config, MinSize, !Ref Stage ]
       LoadBalancerNames:
       - Ref: LoadBalancer
       HealthCheckGracePeriod: 300
@@ -222,14 +210,6 @@ Resources:
             Resource:
             - !Sub arn:aws:s3:::${App}-config
             - !Sub arn:aws:s3:::${App}-config/*
-        PolicyDocument:
-          Version: '2012-10-17'
-          Statement:
-          - Effect: Allow
-            Action:
-            - sqs:*
-            Resource:
-            - !Sub ${TestInputQueue.Arn}
       - PolicyName: DescribeEC2Policy
         PolicyDocument:
           Version: '2012-10-17'
