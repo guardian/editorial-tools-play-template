@@ -1,4 +1,4 @@
-name := "scaling-atoms"
+name := "atom-workshop"
 
 version := "1.0"
 
@@ -27,12 +27,12 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
 
     debianPackageDependencies := Seq("openjdk-8-jre-headless"),
     maintainer := "Editorial Tools <digitalcms.dev@guardian.co.uk>",
-    packageSummary := "Atom management tool",
+    packageSummary := "Atom Workshop",
     packageDescription := """A single place for atoms of all types""",
 
     riffRaffArtifactResources ++= Seq(
       riffRaffPackageType.value -> s"packages/${name.value}/${name.value}.deb",
-      baseDirectory.value / "cloudformation" / "ScalingAtoms.yml" -> s"packages/cloudformation/ScalingAtoms.yml"
+      baseDirectory.value / "cloudformation" / "AtomWorkshop.yml" -> s"packages/cloudformation/AtomWorkshop.yml"
     ),
     javaOptions in Universal ++= Seq(
       "-Dlogger.resource=prod-logger.xml",
