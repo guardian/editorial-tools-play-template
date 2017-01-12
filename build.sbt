@@ -18,10 +18,10 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
     topLevelDirectory := Some(normalizedName.value),
     riffRaffPackageName := s"editorial-tools:${name.value}",
     riffRaffManifestProjectName := riffRaffPackageName.value,
-    riffRaffBuildIdentifier :=  Option(System.getenv("CIRCLE_BUILD_NUM")).getOrElse("dev"),
+    riffRaffBuildIdentifier :=  Option(System.getenv("BUILD_NUMBER")).getOrElse("DEV"),
     riffRaffUploadArtifactBucket := Option("riffraff-artifact"),
     riffRaffUploadManifestBucket := Option("riffraff-builds"),
-    riffRaffManifestBranch := Option(System.getenv("CIRCLE_BRANCH")).getOrElse("dev"),
+    riffRaffManifestBranch := Option(System.getenv("BRANCH_NAME")).getOrElse("unknown_branch"),
 
     riffRaffPackageType := (packageBin in Debian).value,
 
