@@ -52,6 +52,9 @@ Parameters:
   ELBSSLCertificate:
     Type: String
     Description: ELB SSL Certificate ARN
+  VulnerabilityScanningSecurityGroup:
+    Type: AWS::EC2::SecurityGroup::Id
+    Description: Security group that grants access to the account's Vulnerability Scanner
 Mappings:
   Config:
     IpRange:
@@ -77,6 +80,7 @@ Resources:
       SecurityGroups:
         - Ref: SSHSecurityGroup
         - Ref: InstanceSecurityGroup
+        - Ref: !Ref VulnerabilityScanningSecurityGroup
       UserData:
         Fn::Base64:
           !Sub |
