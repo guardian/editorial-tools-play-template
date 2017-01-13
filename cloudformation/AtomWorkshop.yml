@@ -101,7 +101,7 @@ Resources:
       - IpProtocol: tcp
         FromPort: '9000'
         ToPort: '9000'
-        CidrIp: !FindInMap [ Config, IpRange, !Ref Stage ]
+        CidrIp: '0.0.0.0/0'
   SSHSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
