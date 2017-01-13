@@ -34,7 +34,6 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala, RiffRaffArtifact
       baseDirectory.value / "cloudformation" / "AtomWorkshop.yml" -> s"packages/cloudformation/AtomWorkshop.yml"
     ),
     javaOptions in Universal ++= Seq(
-      "-Dlogger.resource=prod-logger.xml",
       "-Dpidfile.path=/dev/null"
     )
   )

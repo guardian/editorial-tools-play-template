@@ -80,7 +80,7 @@ Resources:
       SecurityGroups:
         - Ref: SSHSecurityGroup
         - Ref: InstanceSecurityGroup
-        - Ref: !Ref VulnerabilityScanningSecurityGroup
+        - Ref: VulnerabilityScanningSecurityGroup
       UserData:
         Fn::Base64:
           !Sub |
