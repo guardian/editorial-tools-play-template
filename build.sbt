@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   "com.gu" % "kinesis-logback-appender" % "1.3.0",
   "com.amazonaws" % "aws-java-sdk-ec2" % awsVersion,
   "net.logstash.logback" % "logstash-logback-encoder" % "4.2",
-  "com.gu" %% "configuration-magic-core" %  "1.3.0"
+  "com.gu" %% "configuration-magic-core" %  "1.3.0",
+  "com.gu" %% "pan-domain-auth-play_2-5" % "0.4.1"
 )
 routesGenerator := InjectedRoutesGenerator
 

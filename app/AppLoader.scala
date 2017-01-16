@@ -11,5 +11,4 @@ class AppLoader extends ApplicationLoader {
     new AppComponents(context).application
   }
 
-
 }
