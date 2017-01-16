@@ -6,7 +6,7 @@ A single tool for all atom types.
 
 You'll need the [AWS CLI](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) installed, and credentials
 for the composer AWS account from [janus](https://janus.gutools.co.uk). You'll also need to follow the
-'Install SSL certificates' step in the [dev-nginx readme}(https://github.com/guardian/dev-nginx). Then:
+'Install SSL certificates' step in the [dev-nginx readme](https://github.com/guardian/dev-nginx). Then:
 
  - Fetch config from S3: `./fetch-config.sh`
  - Setup the nginx mapping by following the instructions in the
