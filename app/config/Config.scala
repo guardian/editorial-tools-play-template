@@ -31,5 +31,6 @@ object Config extends AwsInstanceTags {
 
   val pandaDomain = config.getString("panda.domain")
   val pandaAuthCallback = config.getString("panda.authCallback")
+  val pandaSystem = config.getString("panda.system")
 
 }

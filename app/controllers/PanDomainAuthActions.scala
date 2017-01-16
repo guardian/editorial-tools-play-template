@@ -14,7 +14,7 @@ trait PanDomainAuthActions extends AuthActions {
 
   override def domain: String = Config.pandaDomain
 
-  override lazy val system: String = "atom-workshop"
+  override lazy val system: String = Config.pandaSystem
 
   override def awsCredentialsProvider: AWSCredentialsProvider = Config.awsCredentialsProvider
 
