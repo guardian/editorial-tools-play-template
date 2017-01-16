@@ -238,6 +238,15 @@ Resources:
             - kinesis:PutRecord
             - kinesis:DescribeStream
             Resource: !Sub arn:aws:kinesis:eu-west-1:743583969668:stream/${ELKKinesisStream}
+      - PolicyName: AtomWorkshopPanDomainPolicy
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Action:
+              - s3:GetObject
+              Resource:
+              - arn:aws:s3:::pan-domain-auth-settings/*
       Path: /
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
