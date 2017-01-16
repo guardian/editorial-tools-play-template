@@ -9,8 +9,7 @@ Parameters:
     Default: 77.91.248.0/21
   InstanceType:
     Type: String
-    Description: AWS instance type for the group. Only choose c3/c4 if you are doing
-      onboard transcoding.  Note that you need m3 or c3 to get instance storage.
+    Description: AWS instance type for the autoscaling group.
     Default: t2.micro
     AllowedValues:
     - t2.micro
@@ -34,11 +33,9 @@ Parameters:
   PrivateSubnets:
     Type: List<AWS::EC2::Subnet::Id>
     Description: The list of SubnetIds in your Virtual Private Cloud (VPC)
-    Default: "subnet-c2620fa7, subnet-2967c870, subnet-2a37bd5d"
   PublicSubnets:
     Type: List<AWS::EC2::Subnet::Id>
     Description: Subnets to use in VPC for public internet-facing ELB
-    Default: "subnet-c3620fa6, subnet-2b37bd5c, subnet-3667c86f"
   KeyName:
     Type: AWS::EC2::KeyPair::KeyName
     Description: Name of an existing key pair, which will be given root access to

@@ -6,3 +6,11 @@ deployments:
     type: autoscaling
     parameters:
       bucket: composer-dist
+  atom-workshop-ami-update:
+    type: ami-cloudformation-parameter
+    app: atom-workshop
+    parameters:
+      amiTags:
+        Recipe: editorial-tools-basic
+        AmigoStage: PROD
+      amiParameter: ImageId
