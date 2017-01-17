@@ -1,0 +1,21 @@
+{
+  "name": "atom-workshop",
+  "version": "1.0.0",
+  "description": "A tool for creating multiple atom types.",
+  "main": "public/index.html",
+  "scripts": {
+    "sass": "node-sass public/stylesheets/scss/main.scss public/stylesheets/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guardian/atom-workshop.git"
+  },
+  "author": "The Guardian",
+  "bugs": {
+    "url": "https://github.com/guardian/atom-workshop/issues"
+  },
+  "homepage": "https://github.com/guardian/atom-workshop",
+  "devDependencies": {
+    "node-sass": "3.8.0"
+  }
+}
