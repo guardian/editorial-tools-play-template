@@ -4,7 +4,8 @@
   "description": "A tool for creating multiple atom types.",
   "main": "public/index.html",
   "scripts": {
-    "sass": "node-sass public/stylesheets/scss/main.scss public/stylesheets/main.css"
+    "start": "webpack ./public/js/app.js ./public/build/app.js --config ./conf/webpack.conf.js --watch",
+    "build": "webpack -p ./public/js/app.js ./public/build/app.js --config ./conf/webpack.conf.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,18 @@
   },
   "homepage": "https://github.com/guardian/atom-workshop",
   "devDependencies": {
-    "node-sass": "3.8.0"
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "beta",
+    "file-loader": "^0.9.0",
+    "node-sass": "3.8.0",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "beta"
   }
 }
