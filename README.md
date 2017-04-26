@@ -1,4 +1,4 @@
-#Editorial Tools play template
+# Editorial Tools play template
 
 This is a dump of all the files that made up atom-workshop before we started adding specific functionality. With a minimal amount of work, you should be able to take these files and, with a few global find and replace operations, have a project with:
 
@@ -17,6 +17,7 @@ Modifying this project for your own needs should just involve some case sensitiv
  - atomworkshop becomes yourdomainname (only in nginxconfig)
  - AtomWorkshop becomes YourAppName
  - Atom Workshop becomes Your App Name
+ - AtomWorkshop.yml file should be renamed YourAppName.yml
 
 A global find for 'workshop' should let you know whether you've got everything!
 
