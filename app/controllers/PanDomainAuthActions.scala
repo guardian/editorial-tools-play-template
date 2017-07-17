@@ -19,3 +19,4 @@ trait PanDomainAuthActions extends AuthActions {
   override def awsCredentialsProvider: AWSCredentialsProvider = Config.awsCredentialsProvider
 
 }
+

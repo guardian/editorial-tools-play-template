@@ -8,10 +8,9 @@ import play.api.Logger
 
 import ch.qos.logback.classic.spi.ILoggingEvent
 import ch.qos.logback.core.{Appender, LayoutBase}
-import com.google.inject.AbstractModule
 
 
-class LogConfig extends AbstractModule {
+class LogConfig {
 
   val rootLogger = LoggerFactory.getLogger(SLFLogger.ROOT_LOGGER_NAME).asInstanceOf[LogbackLogger]
 
