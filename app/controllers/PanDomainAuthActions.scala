@@ -10,13 +10,15 @@ trait PanDomainAuthActions extends AuthActions {
   override def validateUser(authedUser: AuthenticatedUser): Boolean =
     (authedUser.user.email endsWith "@guardian.co.uk") && authedUser.multiFactor
 
-  override def authCallbackUrl: String = Config.pandaAuthCallback
+  def config:Config
 
-  override def domain: String = Config.pandaDomain
+  override def authCallbackUrl: String = config.pandaAuthCallback
 
-  override lazy val system: String = Config.pandaSystem
-
-  override def awsCredentialsProvider: AWSCredentialsProvider = Config.awsCredentialsProvider
+//  override def domain: String = Config.pandaDomain
+//
+//  override lazy val system: String = Config.pandaSystem
+//
+//  override def awsCredentialsProvider: AWSCredentialsProvider = Config.awsCredentialsProvider
 
 }
 

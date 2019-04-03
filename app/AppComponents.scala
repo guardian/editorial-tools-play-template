@@ -1,19 +1,33 @@
-import config.LogConfig
+import com.amazonaws.auth.AWSCredentialsProviderChain
+import com.amazonaws.services.s3.AmazonS3Client
+import com.gu.pandomainauth.PanDomainAuthSettingsRefresher
+import config.{Config, LogConfig}
 import play.api.ApplicationLoader.Context
 import play.api.libs.ws.ahc.AhcWSComponents
-import router.Routes
 import play.api.BuiltInComponentsFromContext
-import controllers.AssetsComponents
+import controllers.{AssetsComponents, Login}
+import play.api.routing.Router
+import router.Routes
 import play.filters.HttpFiltersComponents
 
 class AppComponents(context: Context)
   extends BuiltInComponentsFromContext(context) with AhcWSComponents with AssetsComponents with HttpFiltersComponents {
 
-  val logger = new LogConfig
 
-  lazy val router = new Routes(httpErrorHandler, appController, healthcheckController, loginController, assets)
-  lazy val appController = new controllers.App(wsClient, controllerComponents)
-  lazy val loginController = new controllers.Login(wsClient, controllerComponents)
+  val config = new Config(context.initialConfiguration)
+
+  val panDomainSettings = new PanDomainAuthSettingsRefresher(
+    domain = config.pandaDomain,
+    system = config.appName,
+    actorSystem = actorSystem,
+    awsCredentialsProvider = config.awsCredentialsProvider
+  )
+
+
+  val logger = new LogConfig(config)
+  lazy val router: Router = new Routes(httpErrorHandler, appController, healthcheckController, loginController, assets)
+  lazy val appController = new controllers.App(wsClient, controllerComponents, panDomainSettings, config)
+  lazy val loginController = new Login(wsClient, controllerComponents, panDomainSettings, config)
   lazy val healthcheckController = new controllers.Healthcheck(controllerComponents)
 }
 

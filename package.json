@@ -29,6 +29,6 @@
     "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "beta"
+    "webpack": "4.29.6"
   }
 }
